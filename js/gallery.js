@@ -47,19 +47,23 @@ const images = [
 ];
 
 const gallery = document.querySelector(".gallery");
-images.forEach(({ preview, original, description }) => {
-    const itemList = `<li class="gallery-item">
-  <a class="gallery-link" href="${original}">
-    <img
-      class="gallery-image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
-    />
-  </a>
-</li>`;
-    gallery.insertAdjacentHTML("beforeend", itemList);
-});
+const itemList = images
+    .map(({ preview, original, description }) => {
+        return `<li class="gallery-item">
+      <a class="gallery-link" href="${original}">
+        <img
+          class="gallery-image"
+          src="${preview}"
+          data-source="${original}"
+          alt="${description}"
+        />
+      </a>
+    </li>`;
+    })
+    .join("");
+
+gallery.insertAdjacentHTML("beforeend", itemList);
+
 gallery.addEventListener("click", (event) => {
     event.preventDefault();
     const target = event.target;
